@@ -1,8 +1,6 @@
 require 'google_drive'
-require 'fox16'
 require 'csv'
 
-include Fox
 include GoogleDrive
 
 def setup
