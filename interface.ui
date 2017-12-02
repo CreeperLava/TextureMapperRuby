@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
+  <object class="GtkTextBuffer" id="rightPaneBuffer"/>
+  <object class="GtkTextTagTable" id="texttagtable1"/>
+  <object class="GtkTextBuffer" id="leftPaneBuffer">
+    <property name="tag_table">texttagtable1</property>
+  </object>
   <object class="GtkApplicationWindow" id="mainwindow">
     <property name="can_focus">False</property>
     <property name="title">Texture Mapper</property>
@@ -37,7 +43,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="action_name">runScan</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -91,10 +96,12 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="comboboxtext1">
+              <object class="GtkComboBoxText" id="gameBox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="active">0</property>
                 <items>
+                  <item id="0" translatable="yes">Game</item>
                   <item id="1">ME1</item>
                   <item id="2">ME2</item>
                   <item id="3">ME3</item>
@@ -127,13 +134,14 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
                 <property name="vexpand">True</property>
                 <property name="shadow_type">none</property>
                 <child>
-                  <object class="GtkTextView" id="textview2">
+                  <object class="GtkTextView" id="rightPane">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <property name="editable">False</property>
                     <property name="cursor_visible">False</property>
+                    <property name="buffer">rightPaneBuffer</property>
                     <property name="input_purpose">digits</property>
                   </object>
                 </child>
@@ -160,11 +168,12 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
                 <property name="vexpand">True</property>
                 <property name="shadow_type">none</property>
                 <child>
-                  <object class="GtkTextView" id="textview1">
+                  <object class="GtkTextView" id="leftPane">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
+                    <property name="buffer">leftPaneBuffer</property>
                   </object>
                 </child>
               </object>

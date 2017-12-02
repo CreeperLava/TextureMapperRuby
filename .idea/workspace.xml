@@ -24,7 +24,7 @@
     <SUITE FILE_PATH="coverage/TextureMapperRuby@app.coverage" NAME="app Coverage Results" MODIFIED="1511170751534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="untitled" />
     <SUITE FILE_PATH="coverage/TextureMapperRuby@iRAA.coverage" NAME="iRAA Coverage Results" MODIFIED="1511630123435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fxruby-1.6/examples" MODULE_NAME="untitled" />
     <SUITE FILE_PATH="coverage/TextureMapperRuby@header.coverage" NAME="header Coverage Results" MODIFIED="1511630133234" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fxruby-1.6/examples" MODULE_NAME="untitled" />
-    <SUITE FILE_PATH="coverage/TextureMapperRuby@texture_mapper.coverage" NAME="texture_mapper Coverage Results" MODIFIED="1512148332145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="untitled" />
+    <SUITE FILE_PATH="coverage/TextureMapperRuby@texture_mapper.coverage" NAME="texture_mapper Coverage Results" MODIFIED="1512244455206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="untitled" />
     <SUITE FILE_PATH="coverage/TextureMapperRuby@inputs.coverage" NAME="inputs Coverage Results" MODIFIED="1511630452830" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fxruby-1.6/examples" MODULE_NAME="untitled" />
     <SUITE FILE_PATH="coverage/TextureMapperRuby@interface.coverage" NAME="interface Coverage Results" MODIFIED="1511633393861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="untitled" />
     <SUITE FILE_PATH="coverage/TextureMapperRuby@styledtext.coverage" NAME="styledtext Coverage Results" MODIFIED="1511629995535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fxruby-1.6/examples" MODULE_NAME="untitled" />
@@ -48,21 +48,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="texture_mapper.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="texture_mapper.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/texture_mapper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="41" lean-forward="false" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+            <state relative-caret-position="405">
+              <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="interface.ui" pinned="false" current-in-tab="true">
+      <file leaf-file-name="interface.ui" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/interface.ui">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="164" column="62" lean-forward="true" selection-start-line="164" selection-start-column="62" selection-end-line="164" selection-end-column="62" />
+            <state relative-caret-position="1095">
+              <caret line="136" column="59" lean-forward="false" selection-start-line="136" selection-start-column="59" selection-end-line="136" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -90,8 +90,8 @@
         <option value="$PROJECT_DIR$/interface.rb" />
         <option value="$PROJECT_DIR$/initialize.rb" />
         <option value="$PROJECT_DIR$/main.qml" />
-        <option value="$PROJECT_DIR$/texture_mapper.rb" />
         <option value="$PROJECT_DIR$/interface.ui" />
+        <option value="$PROJECT_DIR$/texture_mapper.rb" />
       </list>
     </option>
   </component>
@@ -115,7 +115,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -136,6 +135,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -297,6 +297,7 @@
       <workItem from="1512057238896" duration="804000" />
       <workItem from="1512076708391" duration="30000" />
       <workItem from="1512140285848" duration="164000" />
+      <workItem from="1512234004593" duration="8533000" />
     </task>
     <servers />
   </component>
@@ -312,17 +313,16 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92793000" />
+    <option name="totallyTimeSpent" value="101326000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="0" width="1372" height="740" extended-state="6" />
+    <frame x="0" y="0" width="1372" height="740" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08199122" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24231333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932332" sideWeight="0.50516987" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32781956" sideWeight="0.49483013" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24101797" sideWeight="0.49483013" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -330,19 +330,12 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932332" sideWeight="0.50516987" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24231333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32781956" sideWeight="0.49483013" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -359,7 +352,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -382,7 +374,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -405,7 +396,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="13" lean-forward="true" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -421,7 +411,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -437,7 +426,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -453,7 +441,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -470,7 +457,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -579,19 +565,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main2.qml" />
-    <entry file="file://$PROJECT_DIR$/main.qml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="123" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/main.qml" />
     <entry file="file://$PROJECT_DIR$/initialize.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-613">
           <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -600,24 +578,23 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
             <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/texture_mapper.rb">
+    <entry file="file://$PROJECT_DIR$/interface.ui">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="41" lean-forward="false" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+        <state relative-caret-position="1095">
+          <caret line="136" column="59" lean-forward="false" selection-start-line="136" selection-start-column="59" selection-end-line="136" selection-end-column="59" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/interface.ui">
+    <entry file="file://$PROJECT_DIR$/texture_mapper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="164" column="62" lean-forward="true" selection-start-line="164" selection-start-column="62" selection-end-line="164" selection-end-column="62" />
+        <state relative-caret-position="405">
+          <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
           <folding />
         </state>
       </provider>
