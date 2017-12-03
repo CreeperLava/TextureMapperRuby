@@ -10,7 +10,7 @@ def setup
     $ws = session.spreadsheet_by_key('1Gvnz_trNOUgW6CSI3eeEYk7SvqsSklIgVuoHDlmw8e8')
 
     # initialize trees if they don't exist
-    (1..3).each { |g| create_tree g if File.empty? "ME#{g}.db" }
+    (1..3).each { |g| create_tree g } if File.empty? 'full.db'
 
     # initialize or update duplicates database
     if !File.empty? 'database.db'
@@ -21,6 +21,7 @@ def setup
   end
 end
 
+
 def internet?
   require 'resolv'
   begin
@@ -30,6 +31,7 @@ def internet?
     return false
   end
 end
+
 
 def create_db
   $ws.worksheets[4].export_as_file('TextureMap.csv') # texture map
@@ -51,8 +53,10 @@ def create_db
   CSV.foreach('TextureMap.csv', headers: true) do |row|
     $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row.fields[0..7])
   end
+  $dupes_db.execute('vacuum')
   File.delete('TextureMap.csv')
 end
+
 
 def update_db
   $ws.worksheets[4].export_as_file('TextureMap.csv') # texture map
@@ -61,21 +65,15 @@ def update_db
     $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row.fields[0..7]) unless # add lines to database
         $dupes_db.execute("select * from textures where groupid=#{row[0]} and game=#{row[1]} and crc=#{row[2]} limit 1").empty? # unless they're already present
   end
+  $dupes_db.execute('vacuum')
   File.delete('TextureMap.csv')
 end
+
 
 def create_tree(game)
   $ws.worksheets[game-1].export_as_file("ME#{game}.csv")
 
-  case game
-  when 1
-    database = $me1_db
-  when 2
-    database = $me2_db
-  when 3
-    database = $me3_db
-  end
-  database.execute <<-SQL
+  $full_db.execute <<-SQL
     create table ME#{game} (
       crc varchar(10),
       name varchar(100),
@@ -84,7 +82,8 @@ def create_tree(game)
   SQL
 
   CSV.foreach("ME#{game}.csv", headers: true) do |row|
-    database.execute("insert into ME#{game} values ( ?, ? )", row.fields[0..1])
+    $full_db.execute("insert into ME#{game} values ( ?, ? )", row.fields[0..1])
   end
+  $full_db.execute('vacuum')
   File.delete("ME#{game}.csv")
 end

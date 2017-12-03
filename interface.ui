@@ -2,6 +2,43 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
+  <object class="GtkFileChooserDialog" id="filechooserdialog1">
+    <property name="can_focus">False</property>
+    <property name="type_hint">dialog</property>
+    <property name="create_folders">False</property>
+    <property name="select_multiple">True</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="filechooserdialog-vbox2">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="filechooserdialog-action_area2">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="openButton">
+                <property name="label" translatable="yes">Open</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkTextBuffer" id="rightPaneBuffer"/>
   <object class="GtkTextTagTable" id="texttagtable1"/>
   <object class="GtkTextBuffer" id="leftPaneBuffer">
@@ -32,17 +69,26 @@
             <property name="homogeneous">True</property>
             <property name="layout_style">end</property>
             <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
+              <object class="GtkLabel" id="error">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="single_line_mode">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
             <child>
               <object class="GtkButton" id="goButton">
                 <property name="label">Go !</property>
+                <property name="width_request">90</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="halign">end</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -53,7 +99,7 @@
           </object>
           <packing>
             <property name="left_attach">1</property>
-            <property name="top_attach">1</property>
+            <property name="top_attach">2</property>
           </packing>
         </child>
         <child>
@@ -64,11 +110,13 @@
             <child>
               <object class="GtkCheckButton" id="optionStandalone">
                 <property name="label">Standalone</property>
+                <property name="width_request">80</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="tooltip_text">Standalone port of the textures.
 Copies duplicates and non-duplicate hashes from your list to the target game, enabling you to get e.g. a full port of your mod from ME3 to ME1.</property>
+                <property name="halign">end</property>
                 <property name="xalign">0</property>
                 <property name="image_position">right</property>
                 <property name="draw_indicator">True</property>
@@ -82,10 +130,12 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
             <child>
               <object class="GtkCheckButton" id="optionRename">
                 <property name="label">Rename</property>
+                <property name="width_request">80</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="tooltip_text">Rename (don't overwrite) files, if there are multiple duplicates for the same hash.</property>
+                <property name="halign">end</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -97,8 +147,10 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
             </child>
             <child>
               <object class="GtkComboBoxText" id="gameBox">
+                <property name="width_request">90</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">end</property>
                 <property name="active">0</property>
                 <items>
                   <item id="0" translatable="yes">Game</item>
@@ -112,6 +164,38 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
                 <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow3">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport" id="viewport1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkTextView" id="leftPane">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="wrap_mode">word</property>
+                    <property name="buffer">leftPaneBuffer</property>
+                  </object>
+                </child>
+              </object>
             </child>
           </object>
           <packing>
@@ -150,34 +234,31 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
           </object>
           <packing>
             <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFileChooserButton" id="chooseDestFolder">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="tooltip_text">Select the folder the processed files will be pasted into. By default,
+the tool will create a subfolder in the folder you selected your files from.</property>
+            <property name="action">select-folder</property>
+            <property name="title">Select the destination folder</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
             <property name="top_attach">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow3">
+          <object class="GtkFileChooserButton" id="chooseSourceFiles">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="shadow_type">in</property>
-            <child>
-              <object class="GtkViewport" id="viewport1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="shadow_type">none</property>
-                <child>
-                  <object class="GtkTextView" id="leftPane">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
-                    <property name="buffer">leftPaneBuffer</property>
-                  </object>
-                </child>
-              </object>
-            </child>
+            <property name="can_focus">False</property>
+            <property name="tooltip_text">Select the file(s) you want to process.</property>
+            <property name="create_folders">False</property>
+            <property name="dialog">filechooserdialog1</property>
+            <property name="title">Select the file(s) to process</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
