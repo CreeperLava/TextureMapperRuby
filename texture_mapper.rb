@@ -83,7 +83,7 @@ You can also just paste some hashes here, one per line, if you just want to know
     @error.text=''
     @rightPaneBuffer.text=''
 
-    if @files.empty?
+    if @files == nil
       @leftPaneBuffer.text.split("\n").each do |line|
         search($1).each {|match| toRightPane($1, match)} if @hashRegex.match(line)
       end
