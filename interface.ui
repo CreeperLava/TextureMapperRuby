@@ -145,6 +145,24 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
                 <property name="position">1</property>
               </packing>
             </child>
+			<child>
+              <object class="GtkCheckButton" id="optionCopy">
+                <property name="label">Copy</property>
+                <property name="width_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text">Copy the files automatically.</property>
+                <property name="halign">end</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
             <child>
               <object class="GtkComboBoxText" id="gameBox">
                 <property name="width_request">90</property>
@@ -162,7 +180,7 @@ Copies duplicates and non-duplicate hashes from your list to the target game, en
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>

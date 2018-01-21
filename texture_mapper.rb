@@ -27,6 +27,7 @@ class Interface < Gtk::ApplicationWindow
 
     @optionStandalone = builder.get_object('optionStandalone')
     @optionRename = builder.get_object('optionStandalone')
+	@optionCopy = builder.get_object('optionCopy')
     @chooseSourceFiles = builder.get_object('chooseSourceFiles')
     @chooseDestFolder = builder.get_object('chooseDestFolder')
 
@@ -103,7 +104,7 @@ You can also just paste some hashes here, one per line, if you just want to know
 			next if match[0] == $1 && !@optionStandalone.active?
 			
 			match[2] = 's' if match[0] == $1
-			copy(file, match)
+			copy(file, match) if @optionCopy.active?
 			toRightPane($1, match)
           }
         end
@@ -112,7 +113,7 @@ You can also just paste some hashes here, one per line, if you just want to know
   end
 
   def search(hash)
-    group_id = $dupes_db.execute("select groupid from textures where crc='#{hash}' and game=#{@selectedGame} limit 1")[0]
+    group_id = $dupes_db.execute("select groupid from textures where crc='#{hash}' limit 1")[0]
 
     if group_id == nil
       if @optionStandalone.active?
