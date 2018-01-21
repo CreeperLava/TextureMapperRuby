@@ -100,8 +100,11 @@ You can also just paste some hashes here, one per line, if you just want to know
       @files.each {|file|
         if @hashRegex.match(file)
           search($1).each { |match|
-            copy(file, match)
-            toRightPane($1, match)
+			next if match[0] == $1 && !@optionStandalone.active?
+			
+			match[2] = 's' if match[0] == $1
+			copy(file, match)
+			toRightPane($1, match)
           }
         end
       }
