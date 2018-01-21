@@ -61,9 +61,18 @@ You can also just paste some hashes here, one per line, if you just want to know
   def toLeftPane
     @leftPaneBuffer.text=''
     @files = @fileChooser.filenames
+	p @files
     @files.each do |file|
-      @leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(file).basename}\n")
+	  if File.file? file
+		@leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(file).basename}\n")
+	  else # check subfolders
+		Pathname(file).each_child() do |c|
+			@files << c.to_s
+			@leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(c).basename}\n") if c.file?
+		end
+	  end
     end
+	p @files
     @chooseDestFolder.set_current_folder @fileChooser.current_folder
     @fileChooser.close
   end
@@ -156,6 +165,6 @@ end
 
 # Verify if access to internet
 # Initialize or update the databases as needed
-setup
+# setup
 Interface.new
 Gtk.main
