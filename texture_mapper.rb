@@ -27,7 +27,7 @@ class Interface < Gtk::ApplicationWindow
 
     @optionStandalone = builder.get_object('optionStandalone')
     @optionRename = builder.get_object('optionStandalone')
-	@optionCopy = builder.get_object('optionCopy')
+    @optionCopy = builder.get_object('optionCopy')
     @chooseSourceFiles = builder.get_object('chooseSourceFiles')
     @chooseDestFolder = builder.get_object('chooseDestFolder')
 
@@ -60,19 +60,19 @@ You can also just paste some hashes here, one per line, if you just want to know
 
 
   def toLeftPane
-    @leftPaneBuffer.text=''
+    @leftPaneBuffer.text = ''
     @files = @fileChooser.filenames
-	@files.each do |file|
-	  if File.file? file
-		@leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(file).basename}\n")
-	  else # check subfolders
-		Pathname(file).each_child() do |c|
-			@files << c.to_s
-			@leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(c).basename}\n") if c.file?
-		end
-	  end
+    @files.each do |file|
+      if File.file? file
+        @leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(file).basename}\n")
+      else # check subfolders
+        Pathname(file).each_child do |c|
+          @files << c.to_s
+          @leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(c).basename}\n") if c.file?
+        end
+      end
     end
-	@chooseDestFolder.set_current_folder @fileChooser.current_folder
+    @chooseDestFolder.set_current_folder @fileChooser.current_folder
     @fileChooser.close
   end
 
@@ -83,13 +83,13 @@ You can also just paste some hashes here, one per line, if you just want to know
 
 
   def runScan
-    if @selectedGame == nil
-      @error.text='No game selected.'
+    if @selectedGame.nil?
+      @error.text = 'No game selected.'
       return
     end
 
-    @error.text=''
-    @rightPaneBuffer.text=''
+    @error.text = ''
+    @rightPaneBuffer.text = ''
 
     if @files == nil
       @leftPaneBuffer.text.split("\n").each do |line|
@@ -101,11 +101,11 @@ You can also just paste some hashes here, one per line, if you just want to know
       @files.each {|file|
         if @hashRegex.match(file)
           search($1).each { |match|
-			next if match[0] == $1 && !@optionStandalone.active?
-			
-			match[2] = 's' if match[0] == $1
-			copy(file, match) if @optionCopy.active?
-			toRightPane($1, match)
+            next if match[0] == $1 && !@optionStandalone.active?
+
+            match[2] = 's' if match[0] == $1
+            copy(file, match) if @optionCopy.active?
+            toRightPane($1, match)
           }
         end
       }
@@ -130,7 +130,7 @@ You can also just paste some hashes here, one per line, if you just want to know
     end
 
     matches = $dupes_db.execute("select crc, name, grade from textures where groupid=#{group_id[0]} and game=#{@selectedGame}")
-    return matches
+    matches
   end
 
   def copy(file, match)
@@ -151,14 +151,14 @@ You can also just paste some hashes here, one per line, if you just want to know
 
   def focusOut
     if @leftPaneBuffer.text == ''
-      @leftPaneBuffer.text= @placeHolderText
+      @leftPaneBuffer.text = @placeHolderText
       @leftPaneBuffer.apply_tag(@placeHolderTag, @leftPaneBuffer.start_iter, @leftPaneBuffer.end_iter)
     end
   end
 
   def focusIn
     if @leftPaneBuffer.text == @placeHolderText
-      @leftPaneBuffer.text= ''
+      @leftPaneBuffer.text = ''
       @leftPaneBuffer.remove_tag(@placeHolderTag, @leftPaneBuffer.start_iter, @leftPaneBuffer.end_iter)
     end
   end

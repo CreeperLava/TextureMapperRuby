@@ -1,26 +1,43 @@
-require 'google_drive'
+require 'http'
 require 'csv'
 
-include GoogleDrive
+@texture_map = 'Texture_Map.csv'
 
 def setup
   if internet?
-    # create link with google drive
-    session = Session.from_service_account_key('config.json')
-    $ws = session.spreadsheet_by_key('1Gvnz_trNOUgW6CSI3eeEYk7SvqsSklIgVuoHDlmw8e8')
-
     # initialize trees if they don't exist
     (1..3).each { |g| create_tree g } if File.empty? 'full.db'
 
-    # initialize or update duplicates database
-    if !File.empty? 'database.db'
-      update_db if $ws.modified_time > DateTime.parse(File.mtime('database.db').to_s)
-    else
-      create_db
-    end
+    # update from github
+    update_texture_map
   end
 end
 
+# if database doesn't exist, create it
+# else if database exists, check if texture map has been modified
+# if yes, download the new and replace the original
+def update_texture_map
+  if File.empty? 'database.db'
+    download_texture_map
+    create_db
+  else
+    last_modified_time = File.open('database.db').mtime.strftime('%FT%TZ')
+    response = HTTP.get("https://api.github.com/repos/CreeperLava/TextureMapperCrystal/commits?path=#{@texture_map}&since=#{last_modified_time}")
+    if response.to_s != '[]'
+      download_texture_map
+      update_db
+    end
+  end
+  File.delete(@texture_map) if File.exist?(@texture_map)
+end
+
+def download_texture_map
+  File.write(@texture_map, HTTP.get('https://raw.githubusercontent.com/CreeperLava/TextureMapperCrystal/master/Texture_Map.csv').to_s)
+end
+
+def download_game_map(game)
+  File.write("ME#{game}_Tree.csv", HTTP.get("https://raw.githubusercontent.com/CreeperLava/TextureMapperCrystal/master/ME#{game}_Tree.csv").to_s)
+end
 
 def internet?
   require 'resolv'
@@ -32,10 +49,7 @@ def internet?
   end
 end
 
-
 def create_db
-  $ws.worksheets[4].export_as_file('TextureMap.csv') # texture map
-
   $dupes_db.execute <<-SQL
     create table textures (
       groupid int,
@@ -50,28 +64,22 @@ def create_db
     );
   SQL
   # 2x faster than CSV.parse and much more efficient for memory (doesn't pull the whole file into RAM)
-  CSV.foreach('TextureMap.csv', headers: true) do |row|
-    $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row.fields[0..7])
+  CSV.foreach(@texture_map, headers: true) do |row|
+    $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row)
   end
   $dupes_db.execute('vacuum')
-  File.delete('TextureMap.csv')
 end
 
-
 def update_db
-  $ws.worksheets[4].export_as_file('TextureMap.csv') # texture map
-
-  CSV.foreach('TextureMap.csv', headers: true) do |row|
-    $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row.fields[0..7]) unless # add lines to database
+  CSV.foreach(@texture_map, headers: true) do |row|
+    $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row) unless # add lines to database
         $dupes_db.execute("select * from textures where groupid=#{row[0]} and game=#{row[1]} and crc=#{row[2]} limit 1").empty? # unless they're already present
   end
   $dupes_db.execute('vacuum')
-  File.delete('TextureMap.csv')
 end
 
-
 def create_tree(game)
-  $ws.worksheets[game-1].export_as_file("ME#{game}.csv")
+  download_game_map(game)
 
   $full_db.execute <<-SQL
     create table ME#{game} (
@@ -82,8 +90,8 @@ def create_tree(game)
   SQL
 
   CSV.foreach("ME#{game}.csv", headers: true) do |row|
-    $full_db.execute("insert into ME#{game} values ( ?, ? )", row.fields[0..1])
+    $full_db.execute("insert into ME#{game} values ( ?, ? )", row)
   end
   $full_db.execute('vacuum')
-  File.delete("ME#{game}.csv")
+  File.delete("ME#{game}_Tree.csv")
 end
