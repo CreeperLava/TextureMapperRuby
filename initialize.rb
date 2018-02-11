@@ -65,7 +65,7 @@ def create_db
   SQL
   # 2x faster than CSV.parse and much more efficient for memory (doesn't pull the whole file into RAM)
   CSV.foreach(@texture_map, headers: true) do |row|
-    $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row)
+	$dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row)
   end
   $dupes_db.execute('vacuum')
 end

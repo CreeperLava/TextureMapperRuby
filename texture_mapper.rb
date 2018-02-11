@@ -62,16 +62,18 @@ You can also just paste some hashes here, one per line, if you just want to know
   def toLeftPane
     @leftPaneBuffer.text = ''
     @files = @fileChooser.filenames
+    tmp = []
     @files.each do |file|
       if File.file? file
         @leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(file).basename}\n")
       else # check subfolders
         Pathname(file).each_child do |c|
-          @files << c.to_s
+          tmp << c.to_s
           @leftPaneBuffer.insert(@leftPaneBuffer.end_iter, "#{Pathname.new(c).basename}\n") if c.file?
         end
       end
     end
+    @files.concat tmp
     @chooseDestFolder.set_current_folder @fileChooser.current_folder
     @fileChooser.close
   end
@@ -97,8 +99,8 @@ You can also just paste some hashes here, one per line, if you just want to know
       end
     else
       destDir = "#{@chooseDestFolder.current_folder}/ME#{@selectedGame}"
-      mkdir destDir unless File.exist? destDir
-      @files.each {|file|
+      mkdir destDir unless (File.exist? destDir) || !@optionCopy.active?
+      @files.each { |file|
         if @hashRegex.match(file)
           search($1).each { |match|
             next if match[0] == $1 && !@optionStandalone.active?
@@ -167,6 +169,6 @@ end
 
 # Verify if access to internet
 # Initialize or update the databases as needed
-setup
+# setup
 Interface.new
 Gtk.main
