@@ -67,6 +67,11 @@ def create_db
   CSV.foreach(@texture_map, headers: true) do |row|
 	$dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row)
   end
+  
+  # add indexes for faster searches
+  $dupes_db.execute('create index index_crc on textures (crc)')
+  $dupes_db.execute('create index index_groupid_game on textures (groupid, game)')
+  
   $dupes_db.execute('vacuum')
 end
 
@@ -92,6 +97,9 @@ def create_tree(game)
   CSV.foreach("ME#{game}.csv", headers: true) do |row|
     $full_db.execute("insert into ME#{game} values ( ?, ? )", row)
   end
+  
+  # add index for faster searches
+  $full_db.execute("create index index_crc_me#{game} on ME#{game} (crc)")
   $full_db.execute('vacuum')
   File.delete("ME#{game}_Tree.csv")
 end
