@@ -1,6 +1,6 @@
 # TextureMapperRuby
 
-A port of the [TextureMapper](https://github.com/CreeperLava/MassEffectTextureMapper) for Ruby. More efficient than Java (less dependencies, way less RAM usage, faster, cleaner, what more can you ask for), and an interesting exercise in any case.
+A port of the [TextureMapper](https://github.com/CreeperLava/MassEffectTextureMapper) for Ruby. More efficient than Java (less dependencies, way less RAM usage, faster, cleaner, what more can you ask for), and an interesting exercise in any case. Also, new features !
 
 **Introduction**
 
@@ -11,7 +11,7 @@ Textures in those games are represented by hashes (hexadecimal IDs, ie 0x1234567
 **Requirements**
 
 Either Linux, Ruby 2.4 and the following Ruby gems : sqlite3, gtk3, google_drive. Install the gems with 'gem install name_of_gem'.
-Or Windows, Ruby 2.4 and the same gems. Not thoroughly tested, but it should work.
+Or Windows, Ruby 2.4 and the same gems.
 
 **Usage**
 
