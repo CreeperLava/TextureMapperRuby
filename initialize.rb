@@ -1,16 +1,19 @@
 require 'http'
+require 'sqlite3'
 require 'csv'
+require 'benchmark'
 
 @texture_map = 'Texture_Map.csv'
+@dupes_db = SQLite3::Database.new 'database.db'
+@full_db = SQLite3::Database.new 'full.db'
 
 def setup
-  if internet?
-    # initialize trees if they don't exist
-    (1..3).each { |g| create_tree g } if File.empty? 'full.db'
+  return unless internet?
+  # initialize trees if they don't exist
+  (1..3).each { |g| create_tree g } if File.empty? 'full.db'
 
-    # update from github
-    update_texture_map
-  end
+  # update from github
+  update_texture_map
 end
 
 # if database doesn't exist, create it
@@ -20,15 +23,16 @@ def update_texture_map
   if File.empty? 'database.db'
     download_texture_map
     create_db
-  else
-    last_modified_time = File.open('database.db').mtime.strftime('%FT%TZ')
-    response = HTTP.get("https://api.github.com/repos/CreeperLava/TextureMapperCrystal/commits?path=#{@texture_map}&since=#{last_modified_time}")
-    if response.to_s != '[]'
-      download_texture_map
-      update_db
-    end
+  elsif tree_updated?
+    download_texture_map
+    update_db
   end
-  File.delete(@texture_map) if File.exist?(@texture_map)
+  File.delete @texture_map if File.exist? @texture_map
+end
+
+def tree_updated?
+  last_modified_time = File.open('database.db').mtime.strftime('%FT%TZ')
+  HTTP.get("https://api.github.com/repos/CreeperLava/TextureMapperCrystal/commits?path=#{@texture_map}&since=#{last_modified_time}").to_s != '[]'
 end
 
 def download_texture_map
@@ -50,7 +54,7 @@ def internet?
 end
 
 def create_db
-  $dupes_db.execute <<-SQL
+  @dupes_db.execute <<-SQL
     create table textures (
       groupid int,
       game int,
@@ -65,28 +69,28 @@ def create_db
   SQL
   # 2x faster than CSV.parse and much more efficient for memory (doesn't pull the whole file into RAM)
   CSV.foreach(@texture_map, headers: true) do |row|
-	$dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row)
+	@dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row[0..7])
   end
-  
+
   # add indexes for faster searches
-  $dupes_db.execute('create index index_crc on textures (crc)')
-  $dupes_db.execute('create index index_groupid_game on textures (groupid, game)')
-  
-  $dupes_db.execute('vacuum')
+  @dupes_db.execute('create index index_crc on textures (crc)')
+  @dupes_db.execute('create index index_groupid_game on textures (groupid, game)')
+  @dupes_db.execute('vacuum')
 end
 
 def update_db
   CSV.foreach(@texture_map, headers: true) do |row|
-    $dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row) unless # add lines to database
-        $dupes_db.execute("select * from textures where groupid=#{row[0]} and game=#{row[1]} and crc=#{row[2]} limit 1").empty? # unless they're already present
+    unless @dupes_db.execute("select * from textures where groupid=#{row[0]} and game=#{row[1]} and crc=#{row[2]} limit 1").empty?
+      @dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row[0..7])
+    end # unless they're already present
   end
-  $dupes_db.execute('vacuum')
+  @dupes_db.execute('vacuum')
 end
 
 def create_tree(game)
   download_game_map(game)
 
-  $full_db.execute <<-SQL
+  @full_db.execute <<-SQL
     create table ME#{game} (
       crc varchar(10),
       name varchar(100),
@@ -95,11 +99,13 @@ def create_tree(game)
   SQL
 
   CSV.foreach("ME#{game}.csv", headers: true) do |row|
-    $full_db.execute("insert into ME#{game} values ( ?, ? )", row)
+    @full_db.execute("insert into ME#{game} values ( ?, ? )", row)
   end
-  
+
   # add index for faster searches
-  $full_db.execute("create index index_crc_me#{game} on ME#{game} (crc)")
-  $full_db.execute('vacuum')
+  @full_db.execute("create index index_crc_me#{game} on ME#{game} (crc)")
+  @full_db.execute('vacuum')
   File.delete("ME#{game}_Tree.csv")
 end
+
+setup

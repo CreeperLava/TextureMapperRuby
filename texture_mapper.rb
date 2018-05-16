@@ -6,8 +6,8 @@ require 'pathname'
 
 include FileUtils
 
-$dupes_db = SQLite3::Database.new 'database.db'
-$full_db = SQLite3::Database.new 'full.db'
+@dupes_db = SQLite3::Database.new 'database.db'
+@full_db = SQLite3::Database.new 'full.db'
 
 class Interface < Gtk::ApplicationWindow
 
@@ -56,6 +56,7 @@ You can also just paste some hashes here, one per line, if you just want to know
     main_window = builder.get_object('mainwindow')
     main_window.set_window_position Gtk::WindowPosition::CENTER
     main_window.show
+    main_window.signal_connect('destroy') { exit! }
   end
 
 
@@ -93,35 +94,34 @@ You can also just paste some hashes here, one per line, if you just want to know
     @error.text = ''
     @rightPaneBuffer.text = ''
 
-    if @files == nil
+    if @files.nil?
       @leftPaneBuffer.text.split("\n").each do |line|
-        search($1).each {|match| toRightPane($1, match)} if @hashRegex.match(line)
+        search($1).each { |match| toRightPane($1, match) } if @hashRegex.match(line)
       end
     else
       destDir = "#{@chooseDestFolder.current_folder}/ME#{@selectedGame}"
       mkdir destDir unless (File.exist? destDir) || !@optionCopy.active?
-      @files.each { |file|
-        if @hashRegex.match(file)
-          search($1).each { |match|
-            next if match[0] == $1 && !@optionStandalone.active?
+      @files.each do |file|
+        next unless @hashRegex.match(file)
+        search($1).each do |match|
+          next if match[0] == $1 && !@optionStandalone.active?
 
-            match[2] = 's' if match[0] == $1
-            copy(file, match) if @optionCopy.active?
-            toRightPane($1, match)
-          }
+          match[2] = 's' if match[0] == $1
+          copy(file, match) if @optionCopy.active?
+          toRightPane($1, match)
         end
-      }
+      end
     end
   end
 
   def search(hash)
-    group_id = $dupes_db.execute("select groupid from textures where crc='#{hash}' limit 1")[0]
+    group_id = @dupes_db.execute("select groupid from textures where crc='#{hash}' limit 1")[0]
 
-    if group_id == nil
+    if group_id.nil?
       if @optionStandalone.active?
         # Verify if hash is indeed present in selected game. If yes, add it to the list of hashes to copy with s (solo) flag
         # If not, return nil
-        solo = $full_db.execute("select crc, name from ME#{@selectedGame} where crc='#{hash}' limit 1")
+        solo = @full_db.execute("select crc, name from ME#{@selectedGame} where crc='#{hash}' limit 1")
         return [] if solo.empty?
 
         solo[0][2] = 's'
@@ -131,13 +131,13 @@ You can also just paste some hashes here, one per line, if you just want to know
       end
     end
 
-    matches = $dupes_db.execute("select crc, name, grade from textures where groupid=#{group_id[0]} and game=#{@selectedGame}")
+    matches = @dupes_db.execute("select crc, name, grade from textures where groupid=#{group_id[0]} and game=#{@selectedGame}")
     matches
   end
 
   def copy(file, match)
     dest = "#{@chooseDestFolder.current_folder}/ME#{@selectedGame}/#{match[1]}_#{match[0]}"
-    ext = "#{Pathname.new(file).extname}"
+    ext = Pathname.new(file).extname.to_s
 
     if @optionRename.active?
       dest2 = dest
@@ -148,27 +148,25 @@ You can also just paste some hashes here, one per line, if you just want to know
       end
       dest = dest2
     end
-    cp file, dest << ext
+    cp file, "#{dest}#{ext}"
   end
 
   def focusOut
-    if @leftPaneBuffer.text == ''
-      @leftPaneBuffer.text = @placeHolderText
-      @leftPaneBuffer.apply_tag(@placeHolderTag, @leftPaneBuffer.start_iter, @leftPaneBuffer.end_iter)
-    end
+    return unless @leftPaneBuffer.text.empty?
+    @leftPaneBuffer.text = @placeHolderText
+    @leftPaneBuffer.apply_tag(@placeHolderTag, @leftPaneBuffer.start_iter, @leftPaneBuffer.end_iter)
   end
 
   def focusIn
-    if @leftPaneBuffer.text == @placeHolderText
-      @leftPaneBuffer.text = ''
-      @leftPaneBuffer.remove_tag(@placeHolderTag, @leftPaneBuffer.start_iter, @leftPaneBuffer.end_iter)
-    end
+    return unless @leftPaneBuffer.text == @placeHolderText
+    @leftPaneBuffer.text = ''
+    @leftPaneBuffer.remove_tag(@placeHolderTag, @leftPaneBuffer.start_iter, @leftPaneBuffer.end_iter)
   end
 end
 
-
 # Verify if access to internet
 # Initialize or update the databases as needed
-# setup
+# Threaded to avoid having to wait because of latency before displaying interface
+Process.spawn("ruby initialize.rb")
 Interface.new
 Gtk.main
