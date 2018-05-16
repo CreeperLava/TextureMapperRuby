@@ -10,9 +10,7 @@
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.5.2, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="atk (v3.2.1, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.16.0, ruby-2.4.2-p198) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="cairo (v1.15.11, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cairo-gobject (v3.2.1, ruby-2.4.2-p198) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="csv (v1.0.0, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="domain_name (v0.5.20170404, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fileutils (v1.0.2, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gdk3 (v3.2.1, ruby-2.4.2-p198) [gem]" level="application" />
@@ -23,14 +21,11 @@
     <orderEntry type="library" scope="PROVIDED" name="gtk3 (v3.2.1, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="http (v3.0.0, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="http-cookie (v1.0.3, ruby-2.4.2-p198) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="http-form_data (v2.0.0, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="http_parser.rb (v0.6.0, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="native-package-installer (v1.0.6, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pango (v3.2.1, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pkg-config (v1.2.9, ruby-2.4.2-p198) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="public_suffix (v3.0.1, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.3.13, ruby-2.4.2-p198) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="unf (v0.1.4, ruby-2.4.2-p198) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="unf_ext (v0.0.7.4, ruby-2.4.2-p198) [gem]" level="application" />
   </component>
 </module>
