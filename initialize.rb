@@ -1,7 +1,6 @@
 require 'http'
 require 'sqlite3'
 require 'csv'
-require 'benchmark'
 
 @texture_map = 'Texture_Map.csv'
 @dupes_db = SQLite3::Database.new 'database.db'

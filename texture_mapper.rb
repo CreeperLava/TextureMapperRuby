@@ -1,13 +1,10 @@
 require 'fileutils'
 require 'sqlite3'
-require './initialize.rb'
 require 'gtk3'
 require 'pathname'
+require './initialize.rb'
 
 include FileUtils
-
-@dupes_db = SQLite3::Database.new 'database.db'
-@full_db = SQLite3::Database.new 'full.db'
 
 class Interface < Gtk::ApplicationWindow
 
@@ -115,6 +112,8 @@ You can also just paste some hashes here, one per line, if you just want to know
   end
 
   def search(hash)
+	@dupes_db = SQLite3::Database.new 'database.db' if @dupes_db.nil?
+	@full_db = SQLite3::Database.new 'full.db' if @full_db.nil?
     group_id = @dupes_db.execute("select groupid from textures where crc='#{hash}' limit 1")[0]
 
     if group_id.nil?
