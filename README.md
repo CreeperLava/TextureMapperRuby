@@ -10,12 +10,12 @@ Textures in those games are represented by hashes (hexadecimal IDs, ie 0x1234567
 
 **Requirements**
 
-Either Linux, Ruby 2.4 and the following Ruby gems : sqlite3, gtk3, google_drive. Install the gems with 'gem install name_of_gem'.
-Or Windows, Ruby 2.4 and the same gems.
+Either Linux, Ruby and the following Ruby gems : `gem install file_utils rake sqlite3 gtk3 http`.
+Or Windows, Ruby and the same gems.
 
 **Usage**
 
-Run the script with the following command : 'ruby texture_mapper.rb'
+Run the script with the following command : `ruby texture_mapper.rb`
 
 1. Browse for the files you wish to port from the top left dialog. The files will be displayed in the left pane, one per line. You can also add more hashes or filenames below manually, although those won't be copied over, only displayed.
 
