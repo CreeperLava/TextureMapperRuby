@@ -66,20 +66,15 @@ def create_db
       PRIMARY KEY(groupid, game, crc)
     );
   SQL
-  # 2x faster than CSV.parse and much more efficient for memory (doesn't pull the whole file into RAM)
-  @dupes_db.transaction
-  CSV.foreach(@texture_map, headers: true) do |row|
-	@dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row[0..7])
-  end
-  @dupes_db.commit
+  update_db
 
   # add indexes for faster searches
   @dupes_db.execute('create index index_crc on textures (crc)')
   @dupes_db.execute('create index index_groupid_game on textures (groupid, game)')
-  @dupes_db.execute('vacuum')
 end
 
 def update_db
+  # 2x faster than CSV.parse and much more efficient for memory (doesn't pull the whole file into RAM)
   @dupes_db.transaction
   CSV.foreach(@texture_map, headers: true) do |row|
     unless @dupes_db.execute("select * from textures where groupid=#{row[0]} and game=#{row[1]} and crc=#{row[2]} limit 1").empty?
@@ -87,7 +82,6 @@ def update_db
     end # unless they're already present
   end
   @dupes_db.commit
-  
   @dupes_db.execute('vacuum')
 end
 
