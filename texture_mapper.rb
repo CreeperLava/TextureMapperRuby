@@ -6,6 +6,9 @@ require './initialize.rb'
 
 include FileUtils
 
+@dupes_db = SQLite3::Database.new 'database.db'
+@full_db = SQLite3::Database.new 'full.db'
+
 class Interface < Gtk::ApplicationWindow
 
   def initialize
