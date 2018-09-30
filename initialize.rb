@@ -35,11 +35,11 @@ def tree_updated?
 end
 
 def download_texture_map
-  File.write(@texture_map, HTTP.get('https://raw.githubusercontent.com/CreeperLava/TextureMapperCrystal/master/Texture_Map.csv').to_s)
+  File.write(@texture_map, HTTP.get('https://raw.githubusercontent.com/CreeperLava/TextureMapperCrystal/master/Texture_Map.csv').to_s.gsub("\r\n", "\n"))
 end
 
 def download_game_map(game)
-  File.write("ME#{game}_Tree.csv", HTTP.get("https://raw.githubusercontent.com/CreeperLava/TextureMapperCrystal/master/ME#{game}_Tree.csv").to_s)
+  File.write("ME#{game}_Tree.csv", HTTP.get("https://raw.githubusercontent.com/CreeperLava/TextureMapperCrystal/master/ME#{game}_Tree.csv").to_s.gsub("\r\n", "\n"))
 end
 
 def internet?
@@ -61,15 +61,17 @@ def create_db
       name varchar(100),
       size_x int,
       size_y int,
-      format varchar(10),
       grade char,
+      format varchar(10),
       PRIMARY KEY(groupid, game, crc)
     );
   SQL
   # 2x faster than CSV.parse and much more efficient for memory (doesn't pull the whole file into RAM)
+  @dupes_db.transaction
   CSV.foreach(@texture_map, headers: true) do |row|
 	@dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row[0..7])
   end
+  @dupes_db.commit
 
   # add indexes for faster searches
   @dupes_db.execute('create index index_crc on textures (crc)')
@@ -78,11 +80,14 @@ def create_db
 end
 
 def update_db
+  @dupes_db.transaction
   CSV.foreach(@texture_map, headers: true) do |row|
     unless @dupes_db.execute("select * from textures where groupid=#{row[0]} and game=#{row[1]} and crc=#{row[2]} limit 1").empty?
       @dupes_db.execute('insert into textures values ( ?, ?, ?, ?, ?, ?, ?, ? )', row[0..7])
     end # unless they're already present
   end
+  @dupes_db.commit
+  
   @dupes_db.execute('vacuum')
 end
 
@@ -97,8 +102,10 @@ def create_tree(game)
     );
   SQL
 
+  @full_db.transaction
   CSV.foreach("ME#{game}.csv", headers: true) do |row|
     @full_db.execute("insert into ME#{game} values ( ?, ? )", row)
+  @full_db.commit
   end
 
   # add index for faster searches
