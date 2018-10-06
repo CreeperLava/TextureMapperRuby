@@ -142,15 +142,10 @@ You can also just paste some hashes here, one per line, if you just want to know
     ext = Pathname.new(file).extname.to_s
 
     if @optionRename.active?
-      dest2 = dest
-      i = 0
-      while File.file?("#{dest2}#{ext}")
-        i += 1
-        dest2 = "#{dest}_#{i}"
-      end
-      dest = dest2
-    end
-    cp file, "#{dest}#{ext}"
+      cp file, "#{dest}#{ext}"
+    else
+	  cp_r file, "#{dest}#{ext}", :remove_destination => true
+	end
   end
 
   def focusOut
