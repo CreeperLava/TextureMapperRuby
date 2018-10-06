@@ -11,7 +11,9 @@ Textures in those games are represented by hashes (hexadecimal IDs, ie 0x1234567
 **Requirements**
 
 The tool works both on Linux and Windows. For Windows, you'll need to install either MSYS2 or Linux Subsystem for Windows + VcXsrv.
+
 Then install Ruby and sqlite : `sudo apt install ruby2.5 ruby2.5-dev libsqlite3-dev`.
+
 And the following Ruby gems : `gem install file_utils rake sqlite3 gtk3 http`.
 
 **Usage**
